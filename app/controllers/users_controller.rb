@@ -17,10 +17,11 @@ class UsersController < ApplicationController
         end
     end
 
-
+    
+    
     def login
         @user = User.find_by(username: params[:username])
-
+        
         if @user && @user.authenticate(params[:password])
             wristband = encode_token({user_id: @user.id})
             render json: { user: UserSerializer.new(@user), token: wristband }
@@ -29,10 +30,11 @@ class UsersController < ApplicationController
         end
     end
 
-    private
 
+    private
+    
     def user_params
         params.permit(:username, :password, :bio, :avatar)
     end
-
+    
 end
